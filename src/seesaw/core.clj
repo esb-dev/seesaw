@@ -35,16 +35,17 @@
              event selector icon action cells table graphics cursor scroll dnd]
             [seesaw.layout :as layout])
   (:import [javax.swing
-             SwingConstants UIManager ScrollPaneConstants DropMode
-             BoxLayout
-             JDialog JFrame JComponent Box JPanel JScrollPane JSplitPane JToolBar JTabbedPane
-             JLabel JTextField JTextArea JTextPane
-             AbstractButton JButton ButtonGroup
-             JOptionPane]
+            SwingConstants UIManager ScrollPaneConstants DropMode
+            BoxLayout
+            JDialog JFrame JComponent Box JPanel JScrollPane JSplitPane JToolBar JTabbedPane
+            JLabel JTextField JTextArea JTextPane
+            AbstractButton JButton ButtonGroup
+            JOptionPane]
            [javax.swing.text JTextComponent StyleConstants]
            [java.awt Component FlowLayout BorderLayout GridLayout
-              GridBagLayout GridBagConstraints
-              Dimension]))
+                     GridBagLayout GridBagConstraints
+                     Dimension]
+           (org.fife.ui.rtextarea RTextScrollPane)))
 
 (declare to-widget)
 (declare popup-option-handler)
@@ -2042,6 +2043,13 @@
   "
   [target & opts]
   (let [^JScrollPane sp (construct JScrollPane)]
+    (.setViewportView sp (make-widget target))
+    (apply-options sp opts)))
+
+; br Hack
+(defn rscrollable
+  [target & opts]
+  (let [^RTextScrollPane sp (construct RTextScrollPane)]
     (.setViewportView sp (make-widget target))
     (apply-options sp opts)))
 
