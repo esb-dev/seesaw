@@ -1,0 +1,2 @@
+# store patches seesaw lib in local repo
+lein localrepo install target/seesaw-1.5.1z-standalone.jar seesaw 1.5.1z
