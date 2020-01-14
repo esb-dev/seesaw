@@ -26,7 +26,7 @@
                  [org.swinglabs.swingx/swingx-core "1.6.3"]
                  [j18n "1.0.2"]
                  ; Hack br
-                 [rsyntaxtextarea/rsyntaxtextarea "3.0.5z"]]
+                 [rsyntaxtextarea/rsyntaxtextarea "3.0.9z"]]
                  ;[com.fifesoft/rsyntaxtextarea "2.5.6"]]
   :profiles { :dev {:dependencies [[com.stuartsierra/lazytest "1.1.2"]
                                   [lein-autodoc "0.9.0"]]}}

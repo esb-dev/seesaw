@@ -44,7 +44,7 @@
            [javax.swing.text JTextComponent StyleConstants]
            [java.awt Component FlowLayout BorderLayout GridLayout
                      GridBagLayout GridBagConstraints
-                     Dimension]
+                     Dimension Frame]
            (org.fife.ui.rtextarea RTextScrollPane)))
 
 (declare to-widget)
@@ -3032,11 +3032,12 @@
     (seesaw.core/return-from-dialog)
     http://download.oracle.com/javase/6/docs/api/javax/swing/JDialog.html
 "
-  [& {:keys [width height visible? modal? on-close size]
+  [parent & {:keys [width height visible? modal? on-close size]
       :or {width 100 height 100 visible? false}
       :as opts}]
   (let [^JDialog dlg (apply-options
-                       (construct JDialog)
+                       ;(construct JDialog)
+                       (JDialog. parent)
                        (merge {:modal? true}
                               (dissoc opts :width :height :visible? :pack?)))]
     (when-not size (.setSize dlg width height))
@@ -3281,7 +3282,7 @@
     (seesaw.core/show!)
     (seesaw.core/return-from-dialog)
 "
-  [& {:as opts}]
+  [parent & {:as opts}]
   ;; (Object message, int messageType, int optionType, Icon icon, Object[] options, Object initialValue)
   (let [{:keys [content option-type type
                 options default-option success-fn cancel-fn no-fn]} (merge dialog-defaults opts)
@@ -3294,7 +3295,7 @@
                 (into-array (map make-widget options)))
               (or default-option (first options))) ; default selection
         remaining-opts (apply dissoc opts :visible? (keys dialog-defaults))
-        dlg            (apply custom-dialog :visible? false :content pane (reduce concat remaining-opts))]
+        dlg            (apply custom-dialog parent :visible? false :content pane (reduce concat remaining-opts))]
       ;; when there was no options specified, default options will be
       ;; used, so the success-fn cancel-fn & no-fn must be called
       (when-not options
