@@ -1,2 +1,3 @@
-# store patches seesaw lib in local repo
-lein localrepo install target/seesaw-1.5.1z-standalone.jar seesaw 1.5.1z
+# store patched seesaw lib in local repo
+lein localrepo install target/seesaw-1.5.1-esb-dev.jar seesaw 1.5.1-esb-dev
+echo "installed lib seesaw 1.5.1-esb-dev"

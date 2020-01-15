@@ -1,3 +1,33 @@
+# Remark 
+This is a patched version of seesaw fur use in [lwb-gui](https://github.com/esb-lwb/lwb-gui).
+
+The changes are marked by the tag "== Hack esb-dev ==".
+
+### Changes
+
+1. A new file reditpane.clj that has a function textarea that constructs a TextEditorPane from RSyntaxTextArea,
+   just like editpane does this for a RTsyntaxTextarea. 
+   
+2. A new function rscrollable in core.clj that constructs a RTextScrollpane, like scrollable
+
+3. In project.clj  we use a patched version of the lib rsyntaxtextarea which must be in the local maven repository.
+
+4. A horrible hack in dialog and custom-dialog in core.clj. The only possibility to set the parent in a dialog
+   is in the constructor. But the original functions did not set the parent component of a dialog. As a result we 
+   got a strange behaviour on a Mac: when showing the dialog, the menu bar disappears. In both functions there is a first
+   parameter now, namely the parent of the dialog.
+   
+5. In project.clj we set the version to "1.5.1-esb-dev"   
+
+### How to build
+
+1. First build the patched lib rsyntaxtextarea, see https://github.com/esb-dev/RSyntaxTextArea.
+
+2. Leiningen Task jar
+
+3. localrepo
+   
+
 [![Build Status](https://secure.travis-ci.org/daveray/seesaw.png?branch=master)](http://travis-ci.org/daveray/seesaw)
 
 There's now a [Google Group](https://groups.google.com/group/seesaw-clj) for discussion and questions.

@@ -2046,7 +2046,8 @@
     (.setViewportView sp (make-widget target))
     (apply-options sp opts)))
 
-; br Hack
+; == Hack esb-dev ==
+; like scrollabe, but constructs a RTextScrollPane from RTextSyntaxAera
 (defn rscrollable
   [target & opts]
   (let [^RTextScrollPane sp (construct RTextScrollPane)]
@@ -3032,10 +3033,16 @@
     (seesaw.core/return-from-dialog)
     http://download.oracle.com/javase/6/docs/api/javax/swing/JDialog.html
 "
+  ; == Hack esb-dev == 
+  ; the parent as a first parameter of custom-dialog 
+  ; in Java JDialog it is only possible to set the parent component in the constructor!
   [parent & {:keys [width height visible? modal? on-close size]
       :or {width 100 height 100 visible? false}
       :as opts}]
   (let [^JDialog dlg (apply-options
+                       ; == Hack esb-dev == 
+                       ; Since the parent of the dialog must be set in the constructor,
+                       ; I did not manage to use (construct ...) 
                        ;(construct JDialog)
                        (JDialog. parent)
                        (merge {:modal? true}
@@ -3282,6 +3289,9 @@
     (seesaw.core/show!)
     (seesaw.core/return-from-dialog)
 "
+  ; == Hack esb-dev == 
+  ; the parent as a first parameter of dialog, that is forwarded to custom-dialog
+  ; in Java JDialog it is only possible to set the parent component in the constructor!
   [parent & {:as opts}]
   ;; (Object message, int messageType, int optionType, Icon icon, Object[] options, Object initialValue)
   (let [{:keys [content option-type type
